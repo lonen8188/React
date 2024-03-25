@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import todoRouter from "./todoRouter";
+import productsRouter from "./productsRouter";  //p240 추가
 
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -16,6 +17,8 @@ const TodoIndex = lazy(() => import("../pages/todo/IndexPage"))
 
 //P62 리스트 라우팅 설정
 // P64에서 주석처리 (분리) const TodoList = lazy(() => import("../pages/todo/ListPage"))
+
+const ProductsIndex = lazy(() => import("../pages/products/IndexPage")) //p240 추가
 
 const root = createBrowserRouter([
     {
@@ -38,6 +41,11 @@ const root = createBrowserRouter([
         //         element : <Suspense fallback={Loading}> <TodoList/> </Suspense>
         //     }
         //] // 중첩라우팅 종료
-    }
+    },
+    {
+      path: "products",
+      element: <Suspense fallback={Loading}><ProductsIndex/></Suspense>,
+      children: productsRouter()
+    } // p241추가
 ])
 export default root;
