@@ -35,6 +35,8 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok'
 
 	implementation 'org.modelmapper:modelmapper:3.1.1' //dot -> 엔티티 처리 용
+
+	implementation 'net.coobird:thumbnailator:0.4.19' //섬네일 처리용
 	
 }
 
