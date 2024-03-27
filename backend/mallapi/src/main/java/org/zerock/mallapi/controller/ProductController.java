@@ -60,7 +60,7 @@ public class ProductController {
     }
 
     // @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')") // 사용자와 관리자에게 권한 부여
-    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 가능
+    @PreAuthorize("hasRole('ROLE_USER')") // 관리자만 가능 -> 일반 사용자로 변경
     @GetMapping("/list")
     public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
 

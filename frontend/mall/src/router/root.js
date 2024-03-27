@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
 import todoRouter from "./todoRouter";
 import productsRouter from "./productsRouter";  //p240 추가
+import memberRouter from "./memberRouter"; // p358 추가(로그인기능)
 
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -46,6 +47,10 @@ const root = createBrowserRouter([
       path: "products",
       element: <Suspense fallback={Loading}><ProductsIndex/></Suspense>,
       children: productsRouter()
-    } // p241추가
+    }, // p241추가
+    {
+        path: "member",
+        children: memberRouter()
+    } //  p358 추가
 ])
 export default root;

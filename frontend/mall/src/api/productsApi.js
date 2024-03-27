@@ -1,5 +1,6 @@
 import axios from "axios"
 import { API_SERVER_HOST } from "./todoApi"
+import jwtAxios from "../util/jwtUtil"
 
 const host = `${API_SERVER_HOST}/api/products`
 
@@ -9,7 +10,7 @@ export const postAdd = async (product) => {
     const header = {headers: {"Content-Type": "multipart/form-data"}}
 
     // 경로 뒤 '/' 주의 
-    const res = await axios.post(`${host}/`, product, header)
+    const res = await jwtAxios.post(`${host}/`, product, header)
 
 return res.data
 
@@ -20,7 +21,7 @@ export const getList = async ( pageParam ) => {
 
     const {page,size} = pageParam
   
-    const res = await axios.get(`${host}/list`, {params: {page:page,size:size }})
+    const res = await jwtAxios.get(`${host}/list`, {params: {page:page,size:size }})
     
     return res.data
   
@@ -29,9 +30,9 @@ export const getList = async ( pageParam ) => {
   //p273 getOne 한개의 값 가져오기
 export const getOne = async (tno) => {
 
-    const res = await axios.get(`${host}/${tno}` )
-  
-    return res.data
+  // p390 변경 const res = await axios.get(`${host}/${tno}` )
+  const res = await jwtAxios.get(`${host}/${tno}` )
+  return res.data
   
 }
 
@@ -40,7 +41,7 @@ export const putOne = async (pno, product) => {
 
     const header = {headers: {"Content-Type": "multipart/form-data"}}
   
-    const res = await axios.put(`${host}/${pno}`, product, header)
+    const res = await jwtAxios.put(`${host}/${pno}`, product, header)
   
     return res.data
   
@@ -48,7 +49,7 @@ export const putOne = async (pno, product) => {
   
   export const deleteOne = async (pno) => {
   
-    const res = await axios.delete(`${host}/${pno}`)
+    const res = await jwtAxios.delete(`${host}/${pno}`)
   
     return res.data
   

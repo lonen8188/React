@@ -5,6 +5,7 @@ import FetchingModal from "../common/FetchingModal";
 
 import { API_SERVER_HOST } from "../../api/todoApi"; // p267추가
 import PageComponent from "../common/PageComponent"; // p269추가 (상품 클릭시 페이지 이동)
+import useCustomLogin from "../../hooks/useCustomLogin"; // p397 추가 (로그인 연동)
 
 const host = API_SERVER_HOST // p267추가
 
@@ -23,8 +24,9 @@ const initState = {
 
   const ListComponent = () => {
 
+    const {exceptionHandle} = useCustomLogin() // p398 추가
+
     const {page, size, refresh, moveToList, moveToRead} = useCustomMove()
-  
     
     //serverData는 나중에 사용
     const [serverData, setServerData] = useState(initState)
@@ -40,7 +42,7 @@ const initState = {
         console.log(data)
         setServerData(data)
         setFetching(false)
-      })
+      }).catch( err => exceptionHandle(err)) // p398추가
   
     }, [page,size, refresh])
   
