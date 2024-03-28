@@ -4,6 +4,7 @@ import { useState } from "react"
 // p379 제거 import { loginPostAsync } from "../../slices/loginSlice" // p372 추가
 // p379 제거 import { useNavigate } from "react-router-dom" // p376 처리후 이동 
 import useCustomLogin from "../../hooks/useCustomLogin" // p379 추가 (훅이용)
+import KakaoLoginComponent from "./KakaoLoginComponent" // p411 추가 (카카오로그인)
 
 const initState = {
     email:'',
@@ -96,6 +97,8 @@ return (
                 </div>
             </div>
         </div>
+        <KakaoLoginComponent/> 
+        {/* p412 카카오 추가  */}
     </div>
     );
     }

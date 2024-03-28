@@ -76,7 +76,6 @@ const beforeRes = async (res) => {
 
     return await axios(originalRequest)
 
-    
   }
 
   return res
