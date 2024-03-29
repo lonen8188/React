@@ -30,8 +30,8 @@ public class CartRepositoryTests {
         log.info("test1-----------------------");
 
         //사용자가 전송하는 정보
-        String email = "user1@aaa.com";
-        Long pno = 5L;
+        String email = "user9@aaa.com";
+        Long pno = 18L;
         int qty = 4;  // 수량 변경 테스트
 
         //만일 기존에 사용자의 장바구니 아이템이 있었다면
