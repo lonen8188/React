@@ -1,9 +1,11 @@
-import { useEffect, useMemo } from "react"; //474 추가 ,487추가  useMemo
+// 532 제거 import { useEffect, useMemo } from "react"; //474 추가 ,487추가  useMemo
 import useCustomLogin from "../../hooks/useCustomLogin"; // 473 추가
 // 478 제거 import { getCartItemsAsync } from "../../slices/cartSlice"; // 474 추가
 // 478 제거 import { useDispatch, useSelector } from "react-redux"; // 474 추가 476 추가 , useSelector
 import useCustomCart from "../../hooks/useCustomCart"; // 478 추가
 import CartItemComponent from "../cart/CartItemComponent"; // 480 추가
+import { useRecoilValue } from "recoil";  // 532 추가
+import { cartTotalState } from "../../atoms/cartState"; // 532 추가
 
 const CartComponent = () => {
 
@@ -13,31 +15,33 @@ const CartComponent = () => {
 
     // 478 제거 const cartItems = useSelector(state => state.cartSlice )
 
-    const {refreshCart, cartItems , changeCart } = useCustomCart() // 478 추가 ,484 추가 changeCart
+    // 533 제거 const {refreshCart, cartItems , changeCart } = useCustomCart() // 478 추가 ,484 추가 changeCart
+    const { cartItems, changeCart } = useCustomCart() // 533 추가
+    const totalValue = useRecoilValue(cartTotalState) // 533 추가
 
-    // 487 추가
-    const total = useMemo(() => {
+    // 533 제거 ~ 487 추가
+//     const total = useMemo(() => {
 
-        let total = 0
+//         let total = 0
 
-        for(const item of cartItems) {
-        total += item.price * item.qty
-        }
+//         for(const item of cartItems) {
+//         total += item.price * item.qty
+//         }
 
-        return total
+//         return total
 
-    },[cartItems])
+//     },[cartItems])
 
-    useEffect(() => {
+//     useEffect(() => {
 
-        if(isLogin) {
-        // 478 제거       dispatch(getCartItemsAsync())
-        // } // 475 추가
+//         if(isLogin) {
+//         // 478 제거       dispatch(getCartItemsAsync())
+//         // } // 475 추가
 
-        refreshCart() // 478 추가
-    }
+//         refreshCart() // 478 추가
+//     }
 
-  },[isLogin])
+//   },[isLogin]) ~ 533 제거
 
 
     return ( 
@@ -62,7 +66,8 @@ const CartComponent = () => {
                 </div>
                 <div>
                     <div className="text-2xl text-right font-extrabold">
-                    TOTAL: {total}
+                    {/* 533 변경 TOTAL: {total} */}
+                    TOTAL : {totalValue} 
                     </div>
                 </div>
             </div>

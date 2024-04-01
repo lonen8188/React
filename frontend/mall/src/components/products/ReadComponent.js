@@ -3,8 +3,8 @@ import  {getOne} from "../../api/productsApi"
 import { API_SERVER_HOST } from "../../api/todoApi"
 import useCustomMove from "../../hooks/useCustomMove"
 import FetchingModal from "../common/FetchingModal"
-// 498제거 import useCustomCart from "../../hooks/useCustomCart"  // 489 추가
-// 498제거 import useCustomLogin from "../../hooks/useCustomLogin" // 489 추가
+import useCustomCart from "../../hooks/useCustomCart"  // 489 추가 // 498제거 //534 재추가
+import useCustomLogin from "../../hooks/useCustomLogin" // 489 추가 // 498제거 //534 재추가 
 import { useQuery } from "@tanstack/react-query" // 498 추가
 
 const initState = {
@@ -37,7 +37,7 @@ const ReadComponent = ({pno }) => {
         ['products', pno],
         ( ) => getOne(pno), 
         {
-          staleTime: 1000 * 10 , //* 60
+          staleTime: 1000 * 10 * 60, // 535 추가 * 60
           retry: 1
            // staleTime은 데이터를 신선도(fresh)를 판단함
            // fetching(패칭 : 가져오는중) -> fresh(프레시 : 신선) -> 10초 후 -> stale(스테일 : 상한)
@@ -47,28 +47,28 @@ const ReadComponent = ({pno }) => {
     // 498제거 const [fetching, setFetching] = useState(false)
 
     //장바구니 기능 // 489 추가
-    // 498제거 const {changeCart, cartItems} = useCustomCart()
+    const {changeCart, cartItems} = useCustomCart() // 498제거 // 534 재추가
 
     //로그인 정보 // 489 추가
-    // 498제거 const {loginState} = useCustomLogin()
+    const {loginState} = useCustomLogin() // 498제거  // 534 재추가
 
      // 490 추가 (AddCart 버튼의 이벤트 처리)
      // 내부에서는 추가된 적이 있는 상품인지 검사해서 경고창을 보여줌
      // 장바구니에 추가 된 적이 없는 상품은 경고창 없이 장바구니에 추가 됨
     const handleClickAddCart = () => {
-        // 498제거
-        // let qty = 1
+        // 498제거 -> 535 재 추가
+        let qty = 1
     
-        // const addedItem = cartItems.filter(item => item.pno === parseInt(pno))[0]
+        const addedItem = cartItems.filter(item => item.pno === parseInt(pno))[0]
     
-        // if(addedItem) {
-        //   if(window.confirm("이미 추가된 상품입니다. 추가하시겠습니까? ") === false) {
-        //     return 
-        //   }
-        //   qty = addedItem.qty + 1
-        // }
+        if(addedItem) {
+          if(window.confirm("이미 추가된 상품입니다. 추가하시겠습니까? ") === false) {
+            return 
+          }
+          qty = addedItem.qty + 1
+        }
     
-        // changeCart({email: loginState.email, pno:pno, qty:qty})
+        changeCart({email: loginState.email, pno:pno, qty:qty})
     
       }
 

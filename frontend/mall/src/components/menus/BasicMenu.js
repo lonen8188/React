@@ -1,9 +1,12 @@
-import { useSelector } from "react-redux"; // p354 추가
+// 526 제거 import { useSelector } from "react-redux"; // p354 추가
 import { Link } from "react-router-dom";
+import useCustomLogin from "../../hooks/useCustomLogin"; // 526 추가
 
 const BasicMenu = () => {
 
-    const loginState = useSelector(state => state.loginSlice) // p355 추가
+    const {loginState} = useCustomLogin() // 526 추가
+
+    // 526 제거 const loginState = useSelector(state => state.loginSlice) // p355 추가
 
     return (
         <nav id="navbar" className=" flex bg-blue-300">
